@@ -2,7 +2,6 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,27 +11,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
-/**
- *
- * @author Lucas
- */
 @Entity
-@Table(name = "sexo")
+@Table(name="sexo")
 public class Sexo implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue
-    @Column(name = "IdSexo", nullable = false)
+    @Column(name="IdSexo",nullable=false)
     private Integer idSexo;
-    @Column(name = "Descricao", nullable = false, unique = false, length = 9)
+    @Column(name="Descricao", unique=true, nullable=false, length=9)
     private String descricao;
 
     @OneToMany(mappedBy = "sexo", fetch = FetchType.LAZY)
     @ForeignKey(name = "PessoaSexo")
-    private List<Pessoa> pessoa;
-
+    private List<Pessoa> pessoas;
+    
     public Sexo() {
     }
 
@@ -52,18 +47,18 @@ public class Sexo implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<Pessoa> getPessoa() {
-        return pessoa;
+    public List<Pessoa> getPessoas() {
+        return pessoas;
     }
 
-    public void setPessoa(List<Pessoa> pessoa) {
-        this.pessoa = pessoa;
+    public void setPessoas(List<Pessoa> pessoas) {
+        this.pessoas = pessoas;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.idSexo);
+        hash = 97 * hash + (this.idSexo != null ? this.idSexo.hashCode() : 0);
         return hash;
     }
 
@@ -76,10 +71,10 @@ public class Sexo implements Serializable {
             return false;
         }
         final Sexo other = (Sexo) obj;
-        if (!Objects.equals(this.idSexo, other.idSexo)) {
+        if (this.idSexo != other.idSexo && (this.idSexo == null || !this.idSexo.equals(other.idSexo))) {
             return false;
         }
         return true;
     }
-
+    
 }
